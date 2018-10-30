@@ -8,7 +8,7 @@ const config = require('./config');
 var url = config.db;
 //const indexroutes = require('./routes/index');
 const indextask = require('./routes/tasks');
-
+const indexuser = require('./routes/users');
 
 
 //settings
@@ -27,6 +27,7 @@ app.use(express.urlencoded({extended:false}));
 //routS
 //app.use(indexroutes);
 app.use('/api',indextask);
+app.use('/app',indexuser);
 
 //static files
 app.use(express.static(path.join(__dirname, 'dist/client')));

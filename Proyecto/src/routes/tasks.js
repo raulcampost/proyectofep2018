@@ -1,28 +1,8 @@
 const router = require('express-promise-router')();
 const mongojs = require('mongojs');
-const multer = require('multer');
 const db = mongojs('mongodb://raul:00025416ad712ecb@ds141633.mlab.com:41633/proyectofep', ['tasks']);
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, '../uploads/');
-    },
-    filename: function(req, file, cb) {
-      cb(null, new Date().toISOString().replace(/:/g,'-') + file.originalname.split(" ").join(""));
-    }
-  });
-  
-  const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
-  
-  const upload = multer({storage: storage,limits: {fileSize: 1024 * 1024 * 5},fileFilter: fileFilter}).single('imagen');
-
+//rutas para tareas
 
 // GET All tasks
 router.get('/tasks', (req, res, next) => {
@@ -85,6 +65,9 @@ router.put('/tasks/:id', (req, res, next) => {
         });
     }
 });
+
+
+
 
 
 module.exports = router;
